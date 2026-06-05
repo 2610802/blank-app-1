@@ -1,6 +1,35 @@
 import streamlit as st
 
-st.title("🎈 My new app")
-st.write(
-    "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
-)
+# 웹앱 제목 설정
+st.title("🍿 영화관 세트 메뉴 추천기")
+st.write("파이썬 코드로 생성된 세트 메뉴 라인업을 확인해보세요!")
+
+# 기존 데이터 옵션
+popcorn_options = ["기본", "카라멜", "어니언"]
+drink_options = ["생수", "탄산음료"]
+
+# --- 1. 기존 for문 로직을 그대로 활용한 전체 메뉴 출력 ---
+st.subheader("📋 전체 세트 메뉴 라인업")
+
+# 결과를 깔끔하게 보여주기 위해 스트림릿의 expander(접기/펼치기) 기능 활용
+with st.expander("모든 세트 조합 보기", expanded=True):
+    # 기존 코드의 2중 for문을 그대로 활용하되, print 대신 st.write 사용
+    for popcorn in popcorn_options:
+        for drink in drink_options:
+            st.write(f"🎬 **세트메뉴:** {popcorn} 팝콘 + {drink}")
+
+st.markdown("---")
+
+# --- 2. 스트림릿의 인터랙티브(선택) 기능 추가 ---
+st.subheader("🛒 나만의 세트메뉴 고르기")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    selected_popcorn = st.selectbox("팝콘을 선택하세요:", popcorn_options)
+
+with col2:
+    selected_drink = st.selectbox("음료를 선택하세요:", drink_options)
+
+# 사용자가 선택한 결과 실시간 출력
+st.success(f"💡 고객님이 선택하신 조합: **{selected_popcorn} 팝콘** + **{selected_drink}** 입니다!")
